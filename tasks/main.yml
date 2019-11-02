@@ -1,0 +1,10 @@
+---
+- name: Generate bash completion file
+  command:
+    kubectl completion bash
+  register: kubectl_bash
+  changed_when: False
+- name: Put bash completion file into place
+  copy:
+    dest: "{{ desktop_user_vars.dir }}/bin/kube_bash.sh"
+    content: "{{ kubectl_bash.stdout }}"
